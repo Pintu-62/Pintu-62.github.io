@@ -12,6 +12,23 @@
     --font: 'Outfit', sans-serif;
 }
 
+/*scroll bar start*/
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gold);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--p1);
+  border-radius: 10px;
+}
+
+/*scroll bar end*/
+
 html {
   font-family: var(--font);
 }
@@ -52,7 +69,7 @@ h1 a, .cart {
     color: var(--dark);
     margin-right: 25px;
     transition: 0.3s ease;
-    font-size: 20px;
+    font-size: 1rem;
 }
 
 h1 a:hover,
@@ -116,13 +133,13 @@ h1 a:hover,
 }
 
 .text h1 {
-    font-size: 50px;
+    font-size: 1.6rem;
     margin-bottom: 20px;
 }
 
 .text p {
     margin-bottom: 20px;
-    font-size: 15px;
+    font-size: 1rem;
 }
 
 .text button {
@@ -131,7 +148,7 @@ h1 a:hover,
     color: var(--light);
     height: 40px;
     width: 150px;
-    font-size: 20px;  
+    font-size: 1rem;  
     font-weight: bold;
     border-radius: 30px;
     transition: 0.3s ease;
@@ -166,7 +183,7 @@ h1 a:hover,
   }
 
   #top-selling-title {
-    font-size: 40px;
+    font-size: 1.6rem;
     background-color: var(--gold);
     width: 90%;
     padding: 10px 20px 0 20px;
@@ -231,7 +248,7 @@ h1 a:hover,
   
   .title_c {
     width: 90%;
-    font-size: 20px;
+    font-size: 1rem;
     min-width: 87%;
     max-width: 97%;
     display: inline-block;
@@ -249,7 +266,7 @@ h1 a:hover,
   .pricing {
     width: 60%;
     margin-top: 10px;
-    font-size: 20px;
+    font-size: 1rem;
     align-items: start;
   }
 
@@ -269,11 +286,11 @@ h1 a:hover,
   }
 
   .pricing h1 {
-    font-size: 32px;
+    font-size: 1.6rem;
   }
 
   .dis {
-    font-size: 32px;
+    font-size: 1.6rem;
     height: 100%;
     opacity: 1;
     transition: 0.3s ease;
@@ -341,12 +358,12 @@ h1 a:hover,
 }
 
 #reach-text h1 {
-  font-size: 40px;
+  font-size: 1.6rem;
   font-weight: 100;
 }
 
 #reach-text p {
-  font-size: 20px;
+  font-size: 1rem;
   font-weight: 100;
 }
 
@@ -361,7 +378,7 @@ h1 a:hover,
 }
 
 .map-img h1 {
-  font-size: 30px;
+  font-size: 1.6rem;
   font-weight: 100;
   width: 500px;
   padding-left: 65px;
@@ -392,7 +409,7 @@ h1 a:hover,
   flex-direction: column;
   padding: 20px;
   margin: 0 20px;
-  font-size: 20px;
+  font-size: 1rem;
   color: var(--light);
   text-align: center;
 }
@@ -402,7 +419,7 @@ h1 a:hover,
 }
 
 .fea-card p {
-  font-size: 15px;
+  font-size: 1rem;
 }
 
 /*feature end*/
@@ -436,12 +453,12 @@ h1 a:hover,
 }
 
 #footer h4 {
-  font-size: 30px;
+  font-size: 1.6rem;
   padding-bottom: 20px;
 }
 
 #footer p, a {
-  font-size: 15px;
+  font-size: 1rem;
   text-decoration: none;
   margin-bottom: 10px;
 }

@@ -155,7 +155,7 @@ const R_sign = "Rs. ";
   ["url(images/hero2.jpg)",
   "Whey Protein2",
   "Lorem 2 Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-  "youtube.com"],
+  "https://www.youtube.com/watch?v=504IurO7F94&list=RDMMUyoDdroSXXs&index=18"],
 
   ["url(images/hero3.png)",
   "Whey Protein3",
