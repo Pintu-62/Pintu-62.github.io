@@ -17,6 +17,12 @@ html {
   overflow-x: hidden;
 }
 
+#all-content {
+    min-width: 1356px;
+    max-width: 1356px;
+    margin: auto;
+  }
+
 /*scroll bar start*/
 
 ::-webkit-scrollbar {

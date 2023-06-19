@@ -1,12 +1,15 @@
 const SHEET_ID = '1oKZkAlaECmEaYfXpqZ7Vo0EpxqQ-hfJ2GdqNLHE5vVI';
 const API_KEY = 'AIzaSyCa_LiyI9rO2fdH93USdYjmIMk9k8vqQJs';
-const sheet_name = 'Cart';
-const range = 'A2:H10000';
+{const sheet_name = 'Cart';
+const range = 'A2:L';
 var i = 0;
 var totalprice = 0;
 var prices = [];
 var final = 0;
 var mode = 0;
+var date_time = 0;
+var orderId = 0;
+var InvoiceNo = 0;
 
 const Delivery = 300;
 const Discount = 10;
@@ -17,7 +20,7 @@ fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheet_
     const productList = document.getElementById('cart-list');
 
     data.values.forEach(product => {
-        const [title, mrp, price, dis, imageUrl, Flavor, Size, Quantity, ] = product;
+        const [CName, Mob_No, SKU, Quantity, Brand, title, imageUrl, Size, Flavor, mrp, dis, price,] = product;
 
         const productElement = document.createElement('div');
         productElement.classList.add('cart-product');
@@ -34,8 +37,11 @@ fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheet_
 
         const text_cElement = document.createElement('div');
         text_cElement.classList.add('text-con');
+        const BrandElement = document.createElement('h3');
+        BrandElement.textContent = Brand;
         const titleElement = document.createElement('h2');
-        titleElement.textContent = title;
+        titleElement.textContent = title.slice(0, 90)+'...';
+        text_cElement.appendChild(BrandElement);
         text_cElement.appendChild(titleElement);
 
         const fla_size_cElement = document.createElement('div');
@@ -47,7 +53,7 @@ fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheet_
 
         const sizeElement = document.createElement('h2');
         sizeElement.classList.add('size-space-giver');
-        sizeElement.textContent = 'Size: ' + Size + ' Kg';
+        sizeElement.textContent = 'Size: ' + Size;
         fla_size_cElement.appendChild(sizeElement);
 
         text_cElement.appendChild(fla_size_cElement);
@@ -88,7 +94,7 @@ fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheet_
     }
     const write = document.getElementById('sum-of');
     write.textContent = totalprice.toFixed(2);
-});
+})};
 
 const D_charge = document.getElementById('D-charge');
 D_charge.textContent = Delivery.toFixed(2);
@@ -121,11 +127,64 @@ function calculate() {
 }
 
 
+
+
+function Check_out() {
+getDateTime() 
+orderID_IvoiceNo ()  
+
+
+
+    document.getElementById('test1').textContent = orderId;
+}
+
 const check_out_button = document.getElementById('check-out');
-check_out_button.addEventListener('click', () => {
-    const get_total = document.getElementById('total');
-    total = (get_total.textContent);
+check_out_button.addEventListener('click', Check_out);
 
-    window.location.href = `check out.html?Total=${total}`;
-});
 
+
+function getDateTime() {
+    var now     = new Date(); 
+    var year    = now.getFullYear();
+    var month   = now.getMonth()+1; 
+    var day     = now.getDate();
+    var hour    = now.getHours();
+    var minute  = now.getMinutes();
+    var second  = now.getSeconds(); 
+    if(month.toString().length == 1) {
+        month = '0'+month;
+    }
+    if(day.toString().length == 1) {
+        day = '0'+day;
+    }   
+    if(hour.toString().length == 1) {
+        hour = '0'+hour;
+    }
+    if(minute.toString().length == 1) {
+        minute = '0'+minute;
+    }
+    if(second.toString().length == 1) {
+        second = '0'+second;
+    }   
+    var dateTime = day+'/'+month+'/'+year+' '+hour+':'+minute+':'+second;   
+    date_time = dateTime;
+}
+
+function orderID_IvoiceNo () {
+    const sheet_name = 'Orders';
+    const range = 'B3:C';
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheet_name}!${range}?key=${API_KEY}`)
+        .then(response => response.json())
+        .then(data => {
+        const productList = document.getElementById('cart-list');
+    
+        data.values.forEach(product => {
+            const [Order_ID, Invoice_no, ] = product;
+
+            const orderElement = orderId = Order_ID;
+            productList.appendChild(orderElement);
+
+            const InvoiceElement = InvoiceNo = Invoice_no;
+            productList.appendChild(InvoiceElement);
+        })})
+}

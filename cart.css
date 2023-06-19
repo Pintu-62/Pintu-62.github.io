@@ -16,6 +16,12 @@ html {
   font-family: var(--font);
 }
 
+#all-content {
+  min-width: 1356px;
+  max-width: 1356px;
+  margin: auto;
+}
+
 /*scroll bar start*/
 
 ::-webkit-scrollbar {
@@ -175,7 +181,7 @@ h1 a:hover,
 }
 
 .img-con img {
-  height: 100%;
+  height: 90%;
   aspect-ratio: 1;
 }
 
@@ -192,9 +198,17 @@ h1 a:hover,
 
 .text-con h2 {
   height: 50%;
+  margin-top: 6px;
+  font-size: 1rem;
+  margin-left: 10px;
+  font-weight: 100;
+}
+
+.text-con h3 {
   margin-top: 10px;
   font-size: 1rem;
   margin-left: 10px;
+  height: 10%;
 }
 
 .fla-size-con {
@@ -217,6 +231,7 @@ h1 a:hover,
 
 .qty_price_con h1 {
   margin: auto;
+
 }
 
 .separate-line {

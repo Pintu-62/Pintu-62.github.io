@@ -31,11 +31,30 @@
             </div>
     </section>
     <!--Navigation bar-->
+
+    <section id="all-content">
+
     <!--Spacer-->
     <div id="spacer">
-        <h1>  </h1>
     </div>
     <!--Spacer-->
+
+    <!---Pop Up-->
+    <div id="Pop-up" class="Pop_up_OFF">
+        <div id="login">
+            <div id="form">
+                <div><label for="Name">Enter Your Full Name:</label><input type="text" id="full_name" autocomplete="name" placeholder="Your Name"></div>
+                <div><label for="Name">Enter Your Mobile Number:</label><input type="number" id="mobile_no" autocomplete="tel" max="9999999999" min="1111111111" required placeholder="Mobile Number"></div>
+                <div id="check_box_container">
+                    <div id="check_box" class="correct_it"><label for="offers"><input type="checkbox"/>I agree to receive deals, offers and other details on my number.</label></div>
+                    <div id="check_box"><label for="offers"><input type="checkbox"/>I agree to terms and Condition.</label></div>
+                </div>
+                <Button id="user_creation">Submit</Button>
+                <p>We respect your privacy & we are committed to protecting your personal information!</p>
+            </div>
+        </div>
+    </div>
+    <!---Pop Up-->
 
     <div class="product-details">
         <div class="imp">
@@ -66,7 +85,6 @@
                 <div class="quantity">
                 <label for="quantity">
                     Quantity: <select required name="quantity" id="quan">
-                        <option value="none" selected disabled>0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -80,7 +98,6 @@
                 <div class="size">
                 <label for="size">
                     Size: <select required name="size" id="size">
-                        <option value="none" selected disabled>0</option>
                         <option value="0.5">0.5</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -94,7 +111,6 @@
                 <div class="flavour">
                 <label for="flavour">
                     Flavour: <select required name="flavour" id="flavour">
-                        <option value="none" selected disabled>Select the Flavour</option>
                         <option value="Vanilla">Vanilla</option>
                         <option value="Mango">Mango</option>
                         <option value="Banana">Banana</option>
@@ -119,6 +135,8 @@
     <script src="product.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://www.google.com/script/api.js"></script>
+
 </body>
 
 <!--Footer start-->
@@ -183,4 +201,5 @@
     </section>
 </footer>
 <!--Footer end-->
+</section>
 </html>

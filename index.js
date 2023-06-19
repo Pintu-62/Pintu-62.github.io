@@ -1,7 +1,35 @@
 const SHEET_ID = '1oKZkAlaECmEaYfXpqZ7Vo0EpxqQ-hfJ2GdqNLHE5vVI';
 const API_KEY = 'AIzaSyCa_LiyI9rO2fdH93USdYjmIMk9k8vqQJs';
-{const sheet_name = 'top-selling';
-const range = 'A2:G15';
+const sheet_name = 'HOME-PAGE';
+
+{const range = 'B3:C9';
+
+fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheet_name}!${range}?key=${API_KEY}`)
+    .then(response => response.json())
+    .then(data => {
+
+      var i = 0;
+
+  function autoscroll () {
+
+  i++;
+  if(i > 6) {
+    i = 0;
+  }
+
+  var hero_banner= document.getElementById("banner-1");
+  hero_banner.style.backgroundImage=data.values[i][0];
+  hero_banner.addEventListener('click', function() {
+    location.href = data.values[i][1];
+});
+};
+
+setInterval(autoscroll, 2000);
+
+  })
+};
+
+{const range = 'B12:I17';
 const R_sign = "Rs. ";
   
 fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheet_name}!${range}?key=${API_KEY}`)
@@ -11,10 +39,19 @@ fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheet_
       
   
       data.values.forEach(product => {
-        const [title, mrp, imageUrl, price, dis, description, ] = product;
+        const [SKU,Brand, title, mrp, imageUrl, price, dis, rating, ] = product;
+        
   
         const productElement = document.createElement('div');
         productElement.classList.add('product');
+
+        const discardElement = document.createElement('div');
+        discardElement.classList.add('discard');
+        const discardtElement = document.createElement('h2');
+        discardtElement.classList.add('dis-card-text');
+        discardtElement.textContent = dis + '%' + ' OFF';
+        discardElement.appendChild(discardtElement);
+        productElement.appendChild(discardElement);
 
         const imgeElement = document.createElement('div');
         imgeElement.classList.add('img-con');
@@ -23,10 +60,17 @@ fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheet_
         imgeElement.appendChild(imageElement);
         productElement.appendChild(imgeElement);
 
+        const BRAND_cElement = document.createElement('div');
+        BRAND_cElement.classList.add('Brand_c');
+        const BrandElement = document.createElement('h3');
+        BrandElement.textContent = Brand;
+        BRAND_cElement.appendChild(BrandElement);
+        productElement.appendChild(BRAND_cElement);
+
         const title_cElement = document.createElement('div');
         title_cElement.classList.add('title_c');
-        const titleElement = document.createElement('h3');
-        titleElement.textContent = title;
+        const titleElement = document.createElement('h5');
+        titleElement.textContent = title.slice(0, 50)+'...';
         title_cElement.appendChild(titleElement);
         productElement.appendChild(title_cElement);
 
@@ -49,16 +93,59 @@ fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheet_
         const pricing2Element = document.createElement('div');
         pricing2Element.classList.add('pricing2');
 
+        const cart2_image = document.createElement('div');
+        cart2_image.classList.add('cart2-image');
+        if (rating == 1){
+          cart2_image.innerHTML = `
+          <div id="star">
+          <i class="fa-solid fa-star fa-1x checked star-1"></i>
+          <i class="fa-solid fa-star fa-1x star-2"></i>
+          <i class="fa-solid fa-star fa-1x star-3"></i>
+          <i class="fa-solid fa-star fa-1x star-4"></i>
+          <i class="fa-solid fa-star fa-1x star-5"></i>
+          </div>`
+          } else if (rating == 2) {
+            cart2_image.innerHTML = `
+            <div id="star">
+            <i class="fa-solid fa-star fa-1x checked star-1"></i>
+            <i class="fa-solid fa-star fa-1x checked star-2"></i>
+            <i class="fa-solid fa-star fa-1x star-3"></i>
+            <i class="fa-solid fa-star fa-1x star-4"></i>
+            <i class="fa-solid fa-star fa-1x star-5"></i>
+            </div>`
+            } else if (rating == 3) {
+              cart2_image.innerHTML = `
+              <div id="star">
+              <i class="fa-solid fa-star fa-1x checked star-1"></i>
+              <i class="fa-solid fa-star fa-1x checked star-2"></i>
+              <i class="fa-solid fa-star fa-1x checked star-3"></i>
+              <i class="fa-solid fa-star fa-1x star-4"></i>
+              <i class="fa-solid fa-star fa-1x star-5"></i>
+              </div>`
+              } else if (rating == 4) {
+                cart2_image.innerHTML = `
+                <div id="star">
+                <i class="fa-solid fa-star fa-1x checked star-1"></i>
+                <i class="fa-solid fa-star fa-1x checked star-2"></i>
+                <i class="fa-solid fa-star fa-1x checked star-3"></i>
+                <i class="fa-solid fa-star fa-1x checked star-4"></i>
+                <i class="fa-solid fa-star fa-1x star-5"></i>
+                </div>`
+                } else if (rating == 5) {
+                  cart2_image.innerHTML = `
+                  <div id="star">
+                  <i class="fa-solid fa-star fa-1x checked star-1"></i>
+                  <i class="fa-solid fa-star fa-1x checked star-2"></i>
+                  <i class="fa-solid fa-star fa-1x checked star-3"></i>
+                  <i class="fa-solid fa-star fa-1x checked star-4"></i>
+                  <i class="fa-solid fa-star fa-1x checked star-5"></i>
+                  </div>`
+                  }
+        
         const disElement = document.createElement('h2');
-        disElement.classList.add('dis');
-        disElement.textContent = dis + '%' + ' OFF';
-        pricing2Element.appendChild(disElement);
-
-        const cart_image = document.createElement('div');
-        cart_image.classList.add('cart-image');
-        cart_image.textContent = "View More";
-        //cart_image.innerHTML = '<a href="cart.html"><i class="fa-solid fa-cart-shopping fa-3x product-cart"></i></a>';
-        pricing2Element.appendChild(cart_image);
+        disElement.textContent = rating;
+        cart2_image.appendChild(disElement);
+        pricing2Element.appendChild(cart2_image);
 
         pricing_cartElement.appendChild(pricing2Element);
 
@@ -66,126 +153,178 @@ fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheet_
         productList.appendChild(productElement);
   
         productElement.addEventListener('click', () => {
-          window.location.href = `product.html?title=${title}&price=${price}&mrp=${mrp}&imageUrl=${imageUrl}&des=${description}&dis=${dis}`;
+          window.location.href = `product.html?SKU=${SKU}`;
         });
       });
     });
   }
 
-
-
-  {const sheet_name = 'flash-sell';
-const range = 'A2:G15';
-const R_sign = "Rs. ";
-  
+{const range = 'B20:I26';
+  const R_sign = "Rs. ";
+    
   fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheet_name}!${range}?key=${API_KEY}`)
-    .then(response => response.json())
-    .then(data => {
+      .then(response => response.json())
+      .then(data => {
       const productList = document.getElementById('new-launch');
+        
+    
+        data.values.forEach(product => {
+          const [SKU,Brand, title, mrp, imageUrl, price, dis, rating, ] = product;
+          
+    
+          const productElement = document.createElement('div');
+          productElement.classList.add('product');
+  
+          const discardElement = document.createElement('div');
+          discardElement.classList.add('discard');
+          const discardtElement = document.createElement('h2');
+          discardtElement.classList.add('dis-card-text');
+          discardtElement.textContent = dis + '%' + ' OFF';
+          discardElement.appendChild(discardtElement);
+          productElement.appendChild(discardElement);
+  
+          const imgeElement = document.createElement('div');
+          imgeElement.classList.add('img-con');
+          const imageElement = document.createElement('img');
+          imageElement.src = imageUrl;
+          imgeElement.appendChild(imageElement);
+          productElement.appendChild(imgeElement);
+  
+          const BRAND_cElement = document.createElement('div');
+          BRAND_cElement.classList.add('Brand_c');
+          const BrandElement = document.createElement('h3');
+          BrandElement.textContent = Brand;
+          BRAND_cElement.appendChild(BrandElement);
+          productElement.appendChild(BRAND_cElement);
+  
+          const title_cElement = document.createElement('div');
+          title_cElement.classList.add('title_c');
+          const titleElement = document.createElement('h5');
+          titleElement.textContent = title.slice(0, 50)+'...';;
+          title_cElement.appendChild(titleElement);
+          productElement.appendChild(title_cElement);
+  
+          const pricing_cartElement = document.createElement('div');
+          pricing_cartElement.classList.add('pricing_cart');
+  
+          const pricingElement = document.createElement('div');
+          pricingElement.classList.add('pricing');
+  
+          const mrpElement = document.createElement('h5');
+          mrpElement.textContent = R_sign + mrp;
+          pricingElement.appendChild(mrpElement);
+    
+          const priceElement = document.createElement('h1');
+          priceElement.textContent = R_sign + price;
+          pricingElement.appendChild(priceElement);
+  
+          pricing_cartElement.appendChild(pricingElement);
+  
+          const pricing2Element = document.createElement('div');
+          pricing2Element.classList.add('pricing2');
+  
+          const cart2_image = document.createElement('div');
+          cart2_image.classList.add('cart2-image');
+          if (rating == 1){
+            cart2_image.innerHTML = `
+            <div id="star">
+            <i class="fa-solid fa-star fa-1x checked star-1"></i>
+            <i class="fa-solid fa-star fa-1x star-2"></i>
+            <i class="fa-solid fa-star fa-1x star-3"></i>
+            <i class="fa-solid fa-star fa-1x star-4"></i>
+            <i class="fa-solid fa-star fa-1x star-5"></i>
+            </div>`
+            } else if (rating == 2) {
+              cart2_image.innerHTML = `
+              <div id="star">
+              <i class="fa-solid fa-star fa-1x checked star-1"></i>
+              <i class="fa-solid fa-star fa-1x checked star-2"></i>
+              <i class="fa-solid fa-star fa-1x star-3"></i>
+              <i class="fa-solid fa-star fa-1x star-4"></i>
+              <i class="fa-solid fa-star fa-1x star-5"></i>
+              </div>`
+              } else if (rating == 3) {
+                cart2_image.innerHTML = `
+                <div id="star">
+                <i class="fa-solid fa-star fa-1x checked star-1"></i>
+                <i class="fa-solid fa-star fa-1x checked star-2"></i>
+                <i class="fa-solid fa-star fa-1x checked star-3"></i>
+                <i class="fa-solid fa-star fa-1x star-4"></i>
+                <i class="fa-solid fa-star fa-1x star-5"></i>
+                </div>`
+                } else if (rating == 4) {
+                  cart2_image.innerHTML = `
+                  <div id="star">
+                  <i class="fa-solid fa-star fa-1x checked star-1"></i>
+                  <i class="fa-solid fa-star fa-1x checked star-2"></i>
+                  <i class="fa-solid fa-star fa-1x checked star-3"></i>
+                  <i class="fa-solid fa-star fa-1x checked star-4"></i>
+                  <i class="fa-solid fa-star fa-1x star-5"></i>
+                  </div>`
+                  } else if (rating == 5) {
+                    cart2_image.innerHTML = `
+                    <div id="star">
+                    <i class="fa-solid fa-star fa-1x checked star-1"></i>
+                    <i class="fa-solid fa-star fa-1x checked star-2"></i>
+                    <i class="fa-solid fa-star fa-1x checked star-3"></i>
+                    <i class="fa-solid fa-star fa-1x checked star-4"></i>
+                    <i class="fa-solid fa-star fa-1x checked star-5"></i>
+                    </div>`
+                    }
+          
+          const disElement = document.createElement('h2');
+          disElement.textContent = rating;
+          cart2_image.appendChild(disElement);
+          pricing2Element.appendChild(cart2_image);
+  
+          pricing_cartElement.appendChild(pricing2Element);
+  
+          productElement.appendChild(pricing_cartElement);
+          productList.appendChild(productElement);
       
-  
-      data.values.forEach(product => {
-        const [title, mrp, imageUrl, price, dis, description, ] = product;
-  
-        const productElement = document.createElement('div');
-        productElement.classList.add('product');
-
-        const imgeElement = document.createElement('div');
-        imgeElement.classList.add('img-con');
-        const imageElement = document.createElement('img');
-        imageElement.src = imageUrl;
-        imgeElement.appendChild(imageElement);
-        productElement.appendChild(imgeElement);
-
-        const title_cElement = document.createElement('div');
-        title_cElement.classList.add('title_c');
-        const titleElement = document.createElement('h3');
-        titleElement.textContent = title;
-        title_cElement.appendChild(titleElement);
-        productElement.appendChild(title_cElement);
-
-        const pricing_cartElement = document.createElement('div');
-        pricing_cartElement.classList.add('pricing_cart');
-
-        const pricingElement = document.createElement('div');
-        pricingElement.classList.add('pricing');
-
-        const mrpElement = document.createElement('h5');
-        mrpElement.textContent = R_sign + mrp;
-        pricingElement.appendChild(mrpElement);
-  
-        const priceElement = document.createElement('h1');
-        priceElement.textContent = R_sign + price;
-        pricingElement.appendChild(priceElement);
-
-        pricing_cartElement.appendChild(pricingElement);
-
-        const pricing2Element = document.createElement('div');
-        pricing2Element.classList.add('pricing2');
-
-        const disElement = document.createElement('h2');
-        disElement.classList.add('dis');
-        disElement.textContent = dis + '%' + ' OFF';
-        pricing2Element.appendChild(disElement);
-
-        const cart_image = document.createElement('div');
-        cart_image.classList.add('cart-image');
-        cart_image.textContent = "View More";
-        //cart_image.innerHTML = '<a href="cart.html"><i class="fa-solid fa-cart-shopping fa-3x product-cart"></i></a>';
-        pricing2Element.appendChild(cart_image);
-
-        pricing_cartElement.appendChild(pricing2Element);
-
-        productElement.appendChild(pricing_cartElement);
-        productList.appendChild(productElement);
-  
-        productElement.addEventListener('click', () => {
-          window.location.href = `product.html?title=${title}&price=${price}&mrp=${mrp}&imageUrl=${imageUrl}&des=${description}&dis=${dis}`;
+          productElement.addEventListener('click', () => {
+            window.location.href = `product.html?SKU=${SKU}`;
+          });
         });
       });
-    });
   }
 
-  var banner_array = [
-  ["url(images/hero.jpg)",
-  "Whey Protein",
-  "Lorem 1 Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-  "google.com"],
+{const range = 'B34:D41';
 
-  ["url(images/hero2.jpg)",
-  "Whey Protein2",
-  "Lorem 2 Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-  "https://www.youtube.com/watch?v=504IurO7F94&list=RDMMUyoDdroSXXs&index=18"],
+  fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheet_name}!${range}?key=${API_KEY}`)
+      .then(response => response.json())
+      .then(data => {
+        
+        document.getElementById('card-1-name').textContent = data.values[0][0];
+        document.getElementById('card-1-details').textContent = data.values[0][1].slice(0, 250)+'...';
+        document.getElementById('card-1').style.backgroundImage="url("+data.values[0][2]+")";
 
-  ["url(images/hero3.png)",
-  "Whey Protein3",
-  "Lorem 3 Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-  "facebook.com"],
+        document.getElementById('card-2-name').textContent = data.values[1][0];
+        document.getElementById('card-2-details').textContent = data.values[1][1].slice(0, 250)+'...';
+        document.getElementById('card-2').style.backgroundImage="url("+data.values[1][2]+")";
 
-  ["url(images/hero4.jpg)",
-  "Whey Protein4",
-  "Lorem 4 Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-  "amazon.in"]
-  ];
+        document.getElementById('card-3-name').textContent = data.values[2][0];
+        document.getElementById('card-3-details').textContent = data.values[2][1].slice(0, 250)+'...';
+        document.getElementById('card-3').style.backgroundImage="url("+data.values[2][2]+")";
 
-  var i = 0;
+        document.getElementById('card-4-name').textContent = data.values[3][0];
+        document.getElementById('card-4-details').textContent = data.values[3][1].slice(0, 250)+'...';
+        document.getElementById('card-4').style.backgroundImage="url("+data.values[3][2]+")";
 
-  function autoscroll () {
+        document.getElementById('card-5-name').textContent = data.values[4][0];
+        document.getElementById('card-5-details').textContent = data.values[4][1].slice(0, 250)+'...';
+        document.getElementById('card-5').style.backgroundImage="url("+data.values[4][2]+")";
 
-  i++;
-  if(i > 3) {
-    i = 0;
-  }
+        document.getElementById('card-6-name').textContent = data.values[5][0];
+        document.getElementById('card-6-details').textContent = data.values[5][1].slice(0, 250)+'...';
+        document.getElementById('card-6').style.backgroundImage="url("+data.values[5][2]+")";
 
-  var hero_banner= document.getElementById("banner-1");
-  hero_banner.style.backgroundImage=banner_array[i][0];
-  hero_banner.innerHTML = 
-  `<div class="text">
-  <H1>${banner_array[i][1]}</H1>
-  <p>${banner_array[i][2]}</p>
-  <a href=${banner_array[i][3]}><button>Shop Now</button></a>
-  </div>`;
+        document.getElementById('card-7-name').textContent = data.values[6][0];
+        document.getElementById('card-7-details').textContent = data.values[6][1].slice(0, 250)+'...';
+        document.getElementById('card-7').style.backgroundImage="url("+data.values[6][2]+")";
 
-  };
+        document.getElementById('card-8-name').textContent = data.values[7][0];
+        document.getElementById('card-8-details').textContent = data.values[7][1].slice(0, 250)+'...';
+        document.getElementById('card-8').style.backgroundImage="url("+data.values[7][2]+")";
 
-setInterval(autoscroll, 5000);
+  })};
